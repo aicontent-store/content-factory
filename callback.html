@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Connecting…</title>
+<style>body{margin:0;height:100vh;display:grid;place-items:center;background:#07070d;color:#f4f3fb;font-family:system-ui,sans-serif}.c{padding:28px 34px;border-radius:24px;background:rgba(22,20,38,.7);border:1px solid rgba(255,255,255,.1);text-align:center}</style></head>
+<body><div class="c"><h2>Connecting your account…</h2><p id="m">Returning to Content Factory on this computer.</p></div>
+<script>
+// OAuth bridge: TikTok/Instagram require an https redirect → hand the code back to the local app.
+const q = new URLSearchParams(location.search);
+const p = q.get('p');
+if (!['tiktok', 'instagram'].includes(p)) { document.getElementById('m').textContent = 'Unknown platform.'; }
+else {
+  q.delete('p');
+  location.replace(`http://localhost:4545/api/${p}/callback?${q.toString()}`);
+}
+</script></body></html>
